@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfólio de Lucas Fagundes da Silva — desenvolvimento web e qualidade de software.">
+  <title>Lucas Fagundes · Desenvolvimento Web & QA</title>
+
+  <!-- Fontes: Space Grotesk (títulos), IBM Plex Sans (texto), IBM Plex Mono (etiquetas técnicas) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       TOKENS DE DESIGN — mude as cores do site inteiro aqui
+       ============================================================ */
+    :root {
+      --fundo: #F5F7F6;        /* fundo geral, cinza-esverdeado claro */
+      --tinta: #16211E;        /* texto principal, quase preto */
+      --suave: #5A6B66;        /* texto secundário */
+      --aprovado: #1E8A5E;     /* verde de teste aprovado */
+      --executando: #B7791F;   /* âmbar de teste em execução */
+      --cartao: #FFFFFF;       /* fundo dos cartões */
+      --borda: #DCE3E0;        /* bordas sutis */
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+
+    body {
+      background: var(--fundo);
+      color: var(--tinta);
+      font-family: 'IBM Plex Sans', sans-serif;
+      line-height: 1.6;
+      font-size: 1.0625rem;
+    }
+
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.15; }
+
+    .mono { font-family: 'IBM Plex Mono', monospace; }
+
+    a { color: var(--aprovado); }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--aprovado);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .container { max-width: 880px; margin: 0 auto; padding: 0 1.25rem; }
+
+    /* ============================================================
+       CABEÇALHO / HERO
+       ============================================================ */
+    header {
+      padding: 4.5rem 0 3rem;
+      border-bottom: 1px solid var(--borda);
+    }
+
+    /* Linha estilo "relatório de teste" — a assinatura do site */
+    .relatorio {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8125rem;
+      color: var(--suave);
+      margin-bottom: 1.5rem;
+    }
+    .relatorio .ok { color: var(--aprovado); font-weight: 500; }
+    .relatorio .run { color: var(--executando); font-weight: 500; }
+
+    header h1 {
+      font-size: clamp(2.25rem, 6vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    header .papel {
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      color: var(--suave);
+      max-width: 34em;
+    }
+    header .papel strong { color: var(--tinta); }
+
+    .disponivel {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8125rem;
+      color: var(--aprovado);
+      border: 1px solid var(--aprovado);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+    }
+    .disponivel::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--aprovado);
+    }
+
+    /* ============================================================
+       SEÇÕES
+       ============================================================ */
+    section { padding: 3rem 0; border-bottom: 1px solid var(--borda); }
+
+    section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    /* Rótulo mono antes de cada título de seção */
+    section h2::before {
+      content: attr(data-rotulo);
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--suave);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    /* ============================================================
+       HABILIDADES — apresentadas como uma suíte de testes
+       ============================================================ */
+    .suite { list-style: none; }
+    .suite li {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px dashed var(--borda);
+      flex-wrap: wrap;
+    }
+    .suite li:last-child { border-bottom: none; }
+
+    .badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .badge.pass { background: #E2F3EB; color: var(--aprovado); }
+    .badge.run  { background: #F7EDDA; color: var(--executando); }
+
+    .suite .detalhe { color: var(--suave); font-size: 0.9375rem; }
+
+    /* ============================================================
+       CARTÕES (certificados e projetos)
+       ============================================================ */
+    .grade {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .cartao {
+      background: var(--cartao);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .cartao h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .cartao p { font-size: 0.9375rem; color: var(--suave); }
+    .cartao .meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--suave);
+      display: block;
+      margin-top: 0.75rem;
+    }
+
+    /* ============================================================
+       CONTATO E RODAPÉ
+       ============================================================ */
+    .contatos { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .contatos a {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.875rem;
+      text-decoration: none;
+      color: var(--tinta);
+      background: var(--cartao);
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      transition: border-color 0.15s ease;
+    }
+    .contatos a:hover { border-color: var(--aprovado); }
+
+    footer {
+      padding: 2.5rem 0;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--suave);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ CABEÇALHO ============ -->
+  <header>
+    <div class="container">
+      <p class="relatorio">
+        suite: lucas-fagundes · <span class="ok">8 aprovados</span> · <span class="run">2 em execução</span> · 0 falhas
+      </p>
+      <h1>Lucas Fagundes da Silva</h1>
+      <p class="papel">
+        Estudante de <strong>Análise e Desenvolvimento de Sistemas</strong> construindo na
+        interseção entre <strong>desenvolvimento web</strong> e <strong>qualidade de software</strong> —
+        eu escrevo o código e sei testá-lo.
+      </p>
+      <p class="disponivel">disponível para estágio e freelance</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ SOBRE ============ -->
+    <section id="sobre">
+      <div class="container">
+        <h2 data-rotulo="// sobre">De testar software a construí-lo</h2>
+        <p>
+          Comecei minha jornada em tecnologia pela qualidade de software — testes funcionais,
+          exploratórios e de regressão — e hoje estou expandindo para o desenvolvimento web.
+          Essa base em QA faz diferença no meu código: penso nos casos extremos antes de
+          escrever a primeira linha. Curso ADS na Universidade Anhembi Morumbi e estudo
+          front-end pela DIO, com 8 certificações concluídas em HTML e mais em andamento.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ HABILIDADES (suíte de testes) ============ -->
+    <section id="habilidades">
+      <div class="container">
+        <h2 data-rotulo="// habilidades.test.js">Suíte de habilidades</h2>
+        <ul class="suite">
+          <li><span class="badge pass">PASS</span> HTML5 semântico <span class="detalhe">— 8 certificações DIO</span></li>
+          <li><span class="badge pass">PASS</span> Formulários, tabelas e mídias em HTML</li>
+          <li><span class="badge pass">PASS</span> Comunicação Client x Server</li>
+          <li><span class="badge pass">PASS</span> Git &amp; GitHub <span class="detalhe">— versionamento no dia a dia</span></li>
+          <li><span class="badge pass">PASS</span> Testes manuais e exploratórios <span class="detalhe">— formação Iterasys</span></li>
+          <li><span class="badge pass">PASS</span> Documentação de bugs e evidências</li>
+          <li><span class="badge pass">PASS</span> Metodologias ágeis <span class="detalhe">— Scrum e Kanban</span></li>
+          <li><span class="badge pass">PASS</span> Postman <span class="detalhe">— testes de API, nível inicial</span></li>
+          <li><span class="badge run">RUN</span> CSS <span class="detalhe">— em curso na DIO</span></li>
+          <li><span class="badge run">RUN</span> JavaScript <span class="detalhe">— em curso na DIO</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ PROJETOS ============ -->
+    <!-- DICA: troque estes cartões pelos seus projetos reais conforme for criando.
+         Cada freela ou exercício de curso pode virar um cartão aqui. -->
+    <section id="projetos">
+      <div class="container">
+        <h2 data-rotulo="// projetos">Projetos</h2>
+        <div class="grade">
+          <article class="cartao">
+            <h3>Este portfólio</h3>
+            <p>Página única em HTML e CSS puros, com HTML semântico, design responsivo e publicada no GitHub Pages.</p>
+            <span class="meta">html · css · github pages</span>
+          </article>
+          <article class="cartao">
+            <h3>Seu próximo projeto</h3>
+            <p>Substitua este cartão pelo seu próximo projeto — uma landing page, um formulário, um desafio da DIO.</p>
+            <span class="meta">em breve</span>
+          </article>
+          <article class="cartao">
+            <h3>Seu terceiro projeto</h3>
+            <p>Três projetos no portfólio já colocam você à frente da maioria dos candidatos a estágio.</p>
+            <span class="meta">em breve</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CERTIFICAÇÕES ============ -->
+    <section id="certificacoes">
+      <div class="container">
+        <h2 data-rotulo="// certificacoes">Certificações DIO — trilha HTML</h2>
+        <div class="grade">
+          <article class="cartao"><h3>Entendendo HTML Semântico</h3><span class="meta">ago/2026 · 2h</span></article>
+          <article class="cartao"><h3>Criando Tabelas com HTML</h3><span class="meta">ago/2026 · 1h</span></article>
+          <article class="cartao"><h3>Trabalhando com Mídias utilizando HTML</h3><span class="meta">ago/2026 · 1h</span></article>
+          <article class="cartao"><h3>Estruturando seu HTML + Formatações</h3><span class="meta">ago/2026 · 2h</span></article>
+          <article class="cartao"><h3>Trabalhando com Formulários em HTML</h3><span class="meta">ago/2026 · 2h</span></article>
+          <article class="cartao"><h3>Introdução ao HTML na Prática</h3><span class="meta">ago/2026 · 2h</span></article>
+          <article class="cartao"><h3>Entendendo Comunicação Client x Server</h3><span class="meta">ago/2026 · 2h</span></article>
+          <article class="cartao"><h3>Como Entregar seu Desafio de Projeto</h3><span class="meta">ago/2026 · 1h</span></article>
+        </div>
+        <p style="margin-top:1rem; color:var(--suave); font-size:0.9375rem;">
+          Formação complementar: Teste de Software e Introdução ao Java (Iterasys) · Início Rápido em Teste e QA (Udemy).
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ CONTATO ============ -->
+    <section id="contato" style="border-bottom:none;">
+      <div class="container">
+        <h2 data-rotulo="// contato">Vamos conversar</h2>
+        <p style="margin-bottom:1.25rem;">
+          Procuro uma oportunidade de estágio em desenvolvimento web ou QA, e aceito projetos freelance de páginas e sites.
+        </p>
+        <div class="contatos">
+          <a href="mailto:lucas.fagundes2104@outlook.com">e-mail</a>
+          <a href="https://www.linkedin.com/in/lucas-fagundes-832ab4189" target="_blank" rel="noopener">linkedin</a>
+          <!-- DICA: troque SEU-USUARIO pelo seu nome de usuário do GitHub -->
+          <a href="https://github.com/SEU-USUARIO" target="_blank" rel="noopener">github</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Lucas Fagundes · feito à mão com HTML e CSS · testado antes do deploy ✓</p>
+    </div>
+  </footer>
+
+</body>
+</html>
