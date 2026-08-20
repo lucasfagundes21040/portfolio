@@ -2,7 +2,7 @@
 
 Meu site de portfólio pessoal, construído com **HTML e CSS puros**, sem frameworks.
 
-🔗 **Ver online:** https://SEU-USUARIO.github.io/portfolio/
+🔗 **Ver online:** https://lucasfagundes21040.github.io/portfolio/
 
 ## Sobre mim
 
